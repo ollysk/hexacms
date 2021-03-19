@@ -1,0 +1,83 @@
+<html lang="en">
+<html class="h-100" lang="en" th:fragment="header">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="" name="description">
+  <title th:text="#{label.page.siteTitle}">Title</title>
+  <!--        <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">-->
+  <link rel="shortcut icon" th:href="@{/favicon.png}" type="image/png">
+
+  <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/base.css" rel="stylesheet">
+
+  <style>
+                      .pers  input[type=text] {
+                              width: 25px;
+                              max-width: 300px;
+                              box-sizing: border-box;
+                              border: 2px solid #ccc;
+                              border-radius: 4px;
+                              font-size: 16px;
+                              background-color: ivory;
+                              backgrou0nd-image: url("https://icons.getbootstrap.com/icons/search.svg");
+                              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+                              background-position: 1px 1px;
+                              background-repeat: no-repeat;
+                              padding: 1px 2px 2px 4px;
+                              -000webkit-transition: width 0.1s linear;
+                              000transition: width 0.4s ease-out;
+                              position: absolute;
+                              right: 5px;
+                              text-indent: 20px;
+                        }
+
+                        .pers input[type=text]:focus {
+                              width: 100%;
+                              right: 5px;
+
+                        }
+
+
+  </style>
+</head>
+<body class="d-flex flex-column h-100">
+
+<div class="container">
+
+  <table bgcolor=#757573 border=0 class="nheader" height=120px width=100%>
+
+    <tr bgcolor=#5a595a>
+      <td align=left bgcolor=#5a595a valign=middle width=1%>
+      <td><a th:href="@{/}"><h2 style="margin-left: 5px;" th:text="#{label.page.siteName}">SITE
+        NAME</h2></a>
+      <td class=s14pxs>
+      <td align=right>
+        <a class="btn btn-warning" role="button"
+           style="margin-right: 5px; color:black;" th:href="@{/add/pr}"
+           th:text="#{label.page.nodeAdd}">Add node</a>
+
+
+    <tr bgcolor=#884244>
+      <td colspan="4" style="background-color: aqua;
+    height: 6px;">
+    <tr bgcolor=#4a494a>
+      <td align=center class=pers colspan=4>
+        <a sec:authorize="!isAuthenticated()" style='color:#ff9100;text-decoration:none;'
+           th:href="@{/user}">anonymous</a>
+        <a sec:authentication="name" sec:authorize="isAuthenticated()"
+           style='color:#ff9100;text-decoration:none;' th:href="@{/logout}"></a>
+        <form style="
+                display: inline;
+            " th:action="@{/search/node}">
+
+          <input autocomplete="off" name="query" placeholder=""
+                 type="text">
+        </form>
+      </td>
+  </table>
+
+</div>
+</div>
+</body>
+</html>

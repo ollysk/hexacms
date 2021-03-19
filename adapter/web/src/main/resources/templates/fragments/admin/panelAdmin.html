@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<div
+    class="preview row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative"
+    style="background-color:gainsboro;font-size: medium;border-top-color: greenyellow !important;border-top-style: solid !important;border-top-width: thick !important;"
+    th:fragment="panelAdmin(nodeId)">
+  <div sec:authorize="hasRole('ROLE_ADMIN')">
+    This content is only shown to administrators.
+  </div>
+  <div class="col p-4 d-flex flex-column position-static">
+    <script src="/js/rest.js"></script>
+    Admin panel
+    <p th:onclick="'unpublish('+ ${nodeId} + ',this);'" th:text="'Delete node #' + ${nodeId}"></p>
+  </div>
+</div>
+</html>

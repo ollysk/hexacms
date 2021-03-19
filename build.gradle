@@ -1,0 +1,32 @@
+plugins {
+	id "io.spring.dependency-management" version "1.0.11.RELEASE"
+	//id 'war'
+}
+
+subprojects {
+
+	group = 'ollysk.net'
+	version = '0.0.1-SNAPSHOT'
+	//sourceCompatibility = '11'
+
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'java-library'
+
+	repositories {
+		jcenter()
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom("org.springframework.boot:spring-boot-dependencies:2.4.4")
+		}
+	}
+	dependencies {
+		compileOnly 'org.projectlombok:lombok:1.18.18'
+		annotationProcessor 'org.projectlombok:lombok:1.18.18'
+	}
+
+
+}
+

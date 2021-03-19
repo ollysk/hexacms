@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class=p-4
+     style="padding:0px !important;--bs-gutter-x:0em;text-align:left;fo00nt-size:13px;font-size: 80%;line-height: 1.5;font-weight: bold;"
+     th:fragment="sidebar">
+  <br>
+
+  <ul>
+    <li th:each="c,iterStat : ${allCategories}">
+      <a class="mb-0" th:href="@{/category/{path}(path=${c.getId()})}" th:text="${c.getName()}">Featured
+        post</a>
+    </li>
+  </ul>
+</div>
+
+
+</body>
+</html>

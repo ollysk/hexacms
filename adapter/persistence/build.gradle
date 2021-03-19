@@ -1,0 +1,21 @@
+dependencies {
+    implementation project(':domain')
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.hibernate:hibernate-search-orm:5.11.8.Final'
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    //testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    //testImplementation 'org.springframework.security:spring-security-test'
+
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    //mapstruct annotationProcessor should go after lombok
+    //also, consider MapStruct Spring Extensions (ver 0.0.1 December 2020)
+    //also "If you are using Lombok 1.18.16 or newer you also need to add lombok-mapstruct-binding in order to make Lombok and MapStruct work together."
+    //but it's works without such binding
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}

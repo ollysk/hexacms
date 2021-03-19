@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<span th:each="p,iterStat : ${nodes}" th:fragment="front">
+      <div
+          class="preview row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0" th:text="${p.getNodeMeta().getTitle()}">Featured post</h3>
+          <div class="mb-1 text-muted" style="font-size:medium;"
+               th:text="${#temporals.format(p.getNodeMeta().getCreated(),'dd MMMM yyyy - HH:mm')}">Nov 12</div>
+          <p class="card-text mb-auto" th:text="${p.getTeaser()}">This is a wider card with supporting text below as a natural lead-in to
+            additional content.</p>
+          <a class="stretched-link" th:href="@{/{path}(path=${p.getNodeMeta().getPath()})}">Continue reading</a>
+        </div>
+
+      </div>
+</span>
+
+
+</body>
+</html>

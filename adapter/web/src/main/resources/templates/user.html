@@ -1,0 +1,25 @@
+<!doctype html>
+<div th:replace="fragments/header :: header"></div>
+<main class="container">
+
+  <div class="row mb-2">
+    <div class="col-md-10">
+      <div class="alert alert-info" th:if="${message != null}" th:utext="${message}">message</div>
+      <div class="alert alert-danger" th:if="${error != null}"
+           th:utext="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error
+      </div>
+
+      <div th:replace="fragments/front :: front"></div>
+
+    </div>
+    <div class="col-md-2 d-none d-md-block">
+      <div th:replace="fragments/sidebar :: sidebar"></div>
+    </div>
+    <h3 class="mb-0" th:text="${user.getUsername()}"></h3>
+  </div>
+</main>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

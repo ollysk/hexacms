@@ -1,0 +1,112 @@
+<div th:replace="fragments/header :: header"></div>
+<main class="container">
+
+  <!--  <div th:replace="/security/authBody :: start"></div>-->
+  <div class="row mb-2">
+    <div class="col-md-12">
+      <div
+          class="preview row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative">
+        <div class="000col p-4 d-flex flex-column position-static" style="align-items: center;">
+
+          <h1>Nodes</h1>
+          <ul id="nodes"></ul>
+          <script>
+
+function createNode(element) {
+    //element.onClick = function(){ window.alert('df') };
+    return document.createElement(element);
+}
+
+function append(parent, el) {
+
+  return parent.appendChild(el);
+}
+
+function unpublish(node, el) {
+  el.style.setProperty("text-decoration", "line-through");
+    url2 = 'http://localhost:8080/api/admin/nodes/'+node;
+    // node.nodeMeta.isPublished = false;
+    // node.title="sdfgdfg";
+    // delete node.id;
+    // delete node.categories;
+    // delete node.countries;
+    fetch(url2, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/merge-patch+json'
+        },
+        //body: JSON.stringify({foo: "This", node: node})});
+        body: JSON.stringify({"isPublished":false})});
+}
+
+function anchorOnClick(event) { log("Changed onclick handler") };
+
+const ul = document.getElementById('nodes');
+const url = 'http://localhost:8080/api/admin/nodes';
+
+fetch(url).then(response => {
+  console.log('start');
+            if(response.ok){
+              console.log('RESP-OK');
+                return response.json();
+            }
+console.log('not 200');
+            return Promise.reject(response);
+        }).catch(e => {
+            if(e.status === 401){
+                // here you are able to do what you need
+                // refresh token ..., logout the user ...
+                console.log("401 "+e);
+            }
+            //return Promise.reject(e);
+        });
+
+fetch(url)
+ .then(function(response)
+     {
+        console.log("BBB "+response.status);
+      if(response.status!==200)
+       {
+
+          throw new Error(response)
+       }
+
+
+       return response.json();
+     })
+
+//.then((resp) => resp.json())
+
+.then(function(data) {
+  console.log('hello');
+  let authors = data;
+  return authors.map(function(author) {
+    let li = createNode('li');
+    //let img = createNode('img');
+    let span = createNode('span');
+    //img.src = author.picture.medium;
+    span.innerHTML = `${author.nodeMeta.title}  (${author.nodeMeta.created})`;
+    //span.onClick = anchorOnClick;
+    span.setAttribute("onclick", `unpublish(${author.id},this)`);
+    //append(li, img);
+    append(li, span);
+    append(ul, li);
+  })
+})
+
+.catch(function(error) {
+  console.log("KKK "+error);
+  //window.location.replace("http://localhost:8080/user");
+
+});
+//unpublish(313433);
+
+
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<div th:replace="fragments/footer :: footer"></div>

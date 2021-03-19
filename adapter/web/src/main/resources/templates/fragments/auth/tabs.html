@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<ul class="nav nav-tabs" th:fragment="tabs">
+  <li class="nav-item">
+    <a aria-current="page" class="nav-link" href="#"
+       th:classappend="${#httpServletRequest.requestURI=='/user'} ? active : ''" th:href="@{/user}"
+       th:utext="#{label.form.loginTitle}">Login</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"
+       th:classappend="${#httpServletRequest.requestURI=='/user/register'} ? active : ''"
+       th:href="@{/user/register}" th:utext="#{label.form.regTitle}">Reg</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"
+       th:classappend="${#httpServletRequest.requestURI=='/user/password'} ? active : ''"
+       th:href="@{/user/password}" th:utext="#{label.form.resetTitle}">Reset password</a>
+  </li>
+</ul>
+</html>

@@ -1,0 +1,12 @@
+plugins {
+    id "org.springframework.boot" version "2.4.4"
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':domain')
+    implementation project(':adapter:persistence')
+    implementation project(':adapter:web')
+    implementation project(':adapter:other')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}

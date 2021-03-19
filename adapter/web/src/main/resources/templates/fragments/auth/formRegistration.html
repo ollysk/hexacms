@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<div class="row mb-2" style="max-width: 330px; align-items: center;width: 100%;margin: auto;"
+     th:fragment="formRegistration">
+  <div th:replace="fragments/auth/tabs :: tabs"></div>
+  <h3 th:utext="#{label.form.regTitle}">form</h3>
+  <br><br>
+  <div class="alert alert-info" th:if="${message != null}" th:utext="${message}">message</div>
+  <div class="alert alert-danger" th:if="${error != null}"
+       th:utext="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error
+  </div>
+
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <form role="form" st000yle="max-width: 300px;align-items: center;" th:action="@{/user/register}"
+        th:method="post"
+        th:object="${userWeb}">
+
+    <div class="form-floating mb-1">
+      <input class="form-control" id="username" placeholder="username123" required
+             th:errorclass="is-invalid" th:field="*{username}" type="text">
+      <label class="form-label" for="username" th:utext="#{label.user.username}">username</label>
+      <div class="form-text" id="usernameHelp">Min 3 characters</div>
+      <div class="invalid-feedback" id="validationUsername" th:errors="*{username}"
+           th:if="${#fields.hasErrors('username')}">
+        Please provide a valid data.
+      </div>
+    </div>
+
+    <div class="form-floating mb-1">
+      <input class="form-control" id="email" placeholder="name@example.com" required
+             th:field="*{email}" type="email">
+      <label class="form-label" for="email" th:utext="#{label.user.email}">email</label>
+      <div class="form-text" id="emailHelp">We'll never share your email with anyone else.</div>
+      <div class="invalid-feedback" id="validationEmail" th:errors="*{email}"
+           th:if="${#fields.hasErrors('email')}">
+        Please provide a valid data.
+      </div>
+    </div>
+
+    <div class="form-floating mb-1">
+      <input class="form-control" id="fullName" placeholder="fullName123" required
+             th:errorclass="is-invalid" th:field="*{fullName}" type="text">
+      <label class="form-label" for="fullName" th:utext="#{label.user.fullName}">fullName</label>
+      <!--            <div id="fullNameHelp" class="form-text">Min 3 characters</div>-->
+      <div class="invalid-feedback" id="validationFullName" th:errors="*{fullName}"
+           th:if="${#fields.hasErrors('fullName')}">
+        Please provide a valid data.
+      </div>
+    </div>
+
+    <div class="form-floating mb-1">
+      <select class="form-select" id="countryId" name="countryId" required
+              th:errorclass="is-invalid">
+        <option disabled selected th:utext="#{label.form.selectCountry}" value="">Choose...</option>
+        <span th:each="country,iterStat : ${countries}">
+                                    <option
+                                        th:attr="value=${country.getId()}"
+                                        th:text="${country.name()}">Технологии
+                                    </option>
+                                </span>
+      </select>
+      <label class="form-label" for="countryId" th:utext="#{label.user.country}">first</label>
+      <div class="invalid-feedback" id="validationCountryId" th:errors="*{countryId}"
+           th:if="${#fields.hasErrors('countryId')}">
+        Please provide a valid data.
+      </div>
+    </div>
+
+    <div class="form-floating mb-1">
+      <input class="form-control" id="company" placeholder="company123" required
+             th:errorclass="is-invalid" th:field="*{company}" type="text">
+      <label class="form-label" for="company" th:utext="#{label.user.company}">company</label>
+      <!--            <div id="companyHelp" class="form-text">Min 3 characters</div>-->
+      <div class="invalid-feedback" id="validationCompany" th:errors="*{company}"
+           th:if="${#fields.hasErrors('company')}">
+        Please provide a valid data.
+      </div>
+    </div>
+
+    <div class="form-floating mb-1">
+      <input class="form-control" id="position" placeholder="position123" th:errorclass="is-invalid"
+             th:field="*{position}" type="text">
+      <label class="form-label" for="position" th:utext="#{label.user.position}">position</label>
+      <!--            <div id="positionHelp" class="form-text">Min 3 characters</div>-->
+      <div class="invalid-feedback" id="validationPosition" th:errors="*{position}"
+           th:if="${#fields.hasErrors('position')}">
+        Please provide a valid data.
+      </div>
+    </div>
+
+    <div class="form-floating mb-1">
+      <input class="form-control" id="site" placeholder="site123" th:errorclass="is-invalid"
+             th:field="*{site}" type="text">
+      <label class="form-label" for="site" th:utext="#{label.user.site}">site</label>
+      <!--            <div id="siteHelp" class="form-text">Min 3 characters</div>-->
+      <div class="invalid-feedback" id="validationSite" th:errors="*{site}"
+           th:if="${#fields.hasErrors('site')}">
+        Please provide a valid data.
+      </div>
+    </div>
+
+    <div class="form-floating mb-1">
+      <input class="form-control" id="telephone" placeholder="telephone123"
+             th:errorclass="is-invalid" th:field="*{telephone}" type="text">
+      <label class="form-label" for="telephone" th:utext="#{label.user.telephone}">telephone</label>
+      <!--            <div id="telephoneHelp" class="form-text">Min 3 characters</div>-->
+      <div class="invalid-feedback" id="validationTelephone" th:errors="*{telephone}"
+           th:if="${#fields.hasErrors('telephone')}">
+        Please provide a valid data.
+      </div>
+    </div>
+
+    <div class="form-floating mb-1">
+      <input class="form-control" id="word" placeholder="word123" required
+             th:errorclass="is-invalid" th:field="*{word}" type="text">
+      <label class="form-label" for="word" th:utext="#{label.user.word}">word</label>
+      <div class="form-text" id="wordHelp" th:utext="#{label.form.wordHelp}">Min 3 characters</div>
+      <div class="invalid-feedback" id="validationWord" th:errors="*{word}"
+           th:if="${#fields.hasErrors('word')}">
+        Please provide a valid data.
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="g-recaptcha col-sm-5" data-callback="onReCaptchaSuccess"
+           data-expired-callback="onReCaptchaExpired"
+           th:attr="data-sitekey=${@captchaService.getCaptchaSite()}"></div>
+      <span class="alert alert-danger col-sm-4" id="captchaError" style="display:none"></span>
+    </div>
+    <input class="btn btn-primary" type="submit">
+  </form>
+</div>
+
+</html>

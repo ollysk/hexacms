@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+<br><br>
+<div id="center" th:fragment="add">
+
+
+  <div id="squeeze">
+    <div class="right-corner">
+      <div class="left-corner">
+        <h2>Add news</h2>
+
+        <form id="node-form" th:action="@{/add/pr}" th:method="post">
+          <div>
+            <div class="node-form">
+              <div class="standard">
+                <!--                <div class="form-item" id="edit-title-wrapper">
+                                  <label for="edit-title">Header: <span class="form-required">*</span></label>
+                                  <input class="form-text required" id="edit-title" maxlength="128" name="title"
+                                         size="60" type="text" value="" />
+                                </div>-->
+                <div class="mb-3">
+                  <!--  <label for="exampleFormControlInput1" class="form-label">Title</label>-->
+                  <input class="form-control required" id="exampleFormControlInput1" name="title"
+                         placeholder="Title" type="text">
+                </div>
+                <fieldset class=" collapsible">
+                  <div class="form-item" id="edit-taxonomy-2-wrapper">
+                    <!--<label for="edit-taxonomy-2">Category: <span class="form-required"
+                                                             title="Э">*</span></label>-->
+                    <select class="form-select" id="edit-taxonomy-2"
+                            multiple="multiple" name="categories" size="9">
+                                                <span th:each="category,iterStat : ${categories}">
+                                                    <option th:attr="value=${category.getId()}"
+                                                            th:text="${category.getName()}">Tech
+                                                    </option>
+
+                                                </span>
+                    </select>
+                    <div class="description">
+                    </div>
+                  </div>
+                  <div class="form-item" id="edit-taxonomy-28-wrapper">
+                    <!--<label>Country: <span class="form-select" title="">*</span></label>-->
+
+                    <select class="form-select" name="countries">
+                                                <span th:each="country,iterStat : ${countries}">
+                                                    <option th:attr="value=${country.getId()}"
+                                                            th:text="${country.getName()}">Технологии
+                                                    </option>
+                                                </span>
+                    </select>
+                    <div class="description"></div>
+                  </div>
+                </fieldset>
+                <input id="edit-changed" name="changed" type="hidden" value=""/>
+                <div class="mb-3">
+                  <!--<label for="exampleFormControlTextarea1" class="form-label">Text</label>-->
+                  <textarea class="form-control" id="exampleFormControlTextarea1" name="body"
+                            placeholder="Text" rows="3"></textarea>
+                </div>
+
+              </div>
+
+            </div>
+            <input class="btn btn-primary" type="submit">
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

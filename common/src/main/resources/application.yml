@@ -1,0 +1,46 @@
+dbName: ramdisk
+google:
+    recaptcha:
+        key:
+            secret: YOUR_SECRET
+            site: YOUR_SITE
+hibernate:
+    generate_statistics: true
+logging:
+    level:
+        org:
+            root: ERROR
+            hibernate: ERROR
+            springframework:
+                web: DEBUG
+spring:
+    datasource:
+        initialization-mode: always
+        username: java
+        password: password
+        url: jdbc:mysql://myapp-mariadb:3306/${dbName}
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5Dialect
+                search:
+                    default:
+                        directory_provider: filesystem
+                        indexBase: ./indexer/lucene
+    mail:
+        host: fake-smtp-server
+        username: YOUR_USERNAME
+        password: YOUR_PASS
+        port: 5025
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    connectiontimeout: 5000
+                    timeout: 8000
+                    starttls:
+                        enable: true
+                transport:
+                    protocol: smtp
