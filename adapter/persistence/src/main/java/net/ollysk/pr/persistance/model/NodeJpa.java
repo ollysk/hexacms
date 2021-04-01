@@ -54,6 +54,7 @@ public class NodeJpa {
   })
   @JoinColumn(name = "id", nullable = false)
   @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   private NodeMetaJpa nodeMeta;
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = {
@@ -66,6 +67,7 @@ public class NodeJpa {
       inverseJoinColumns = @JoinColumn(name = "category_id")
   )
   @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   private Set<CategoryJpa> categories;
 
 }
