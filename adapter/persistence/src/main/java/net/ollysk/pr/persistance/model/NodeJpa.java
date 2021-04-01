@@ -18,6 +18,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
@@ -25,6 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 @Getter
 @Setter
 @EqualsAndHashCode
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -51,6 +53,7 @@ public class NodeJpa {
       CascadeType.MERGE
   })
   @JoinColumn(name = "id", nullable = false)
+  @ToString.Exclude
   private NodeMetaJpa nodeMeta;
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = {
@@ -62,13 +65,7 @@ public class NodeJpa {
       joinColumns = @JoinColumn(name = "node_id"),
       inverseJoinColumns = @JoinColumn(name = "category_id")
   )
+  @ToString.Exclude
   private Set<CategoryJpa> categories;
 
-  @Override public String toString() {
-    return "NodeJpa{" +
-        "id=" + id +
-        ", body='" + body + '\'' +
-        ", teaser='" + teaser + '\'' +
-        '}';
-  }
 }

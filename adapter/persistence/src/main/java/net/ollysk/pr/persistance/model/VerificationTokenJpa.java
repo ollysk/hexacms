@@ -33,8 +33,9 @@ public class VerificationTokenJpa {
 
   private String token;
 
-  @OneToOne(targetEntity = UserJpa.class, fetch = FetchType.EAGER)
+  @OneToOne(targetEntity = UserJpa.class, fetch = FetchType.LAZY)
   @JoinColumn(nullable = false, name = "user_id")
+  @ToString.Exclude
   private UserJpa user;
 
   private LocalDateTime expiryDate;
