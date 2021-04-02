@@ -13,6 +13,7 @@ import net.ollysk.pr.model.UserCountry;
 import net.ollysk.pr.port.in.CaptchaService;
 import net.ollysk.pr.port.in.PasswordService;
 import net.ollysk.pr.port.in.UserService;
+import net.ollysk.pr.web.config.ConfigProperties;
 import net.ollysk.pr.web.event.UserRegistrationEvent;
 import net.ollysk.pr.web.mapper.UserWebMapper;
 import net.ollysk.pr.web.model.RegistrationEvent;
@@ -43,6 +44,7 @@ public class RegistrationController {
   private final PasswordService passwordService;
   private final CookieService cookieService;
   private final UserWebMapper userWebMapper;
+  private final ConfigProperties props;
 
   @GetMapping("")
   public String showSignInPage(final HttpServletRequest request, final UserWeb userWeb,
@@ -100,7 +102,7 @@ public class RegistrationController {
       eventPublisher.publishEvent(new UserRegistrationEvent(
           RegistrationEvent.builder()
               .user(user).password(rawPassword).token("")
-              .serverUrl("http://localhost:8080")
+              .serverUrl(props.getServerUrl())
               .locale(request.getLocale()).build()));
     } catch (ReCaptchaInvalidException reCaptchaInvalidException) {
       model.addAttribute("message", "ReCaptcha Invalid Exception");

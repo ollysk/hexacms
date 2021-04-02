@@ -14,6 +14,7 @@ import net.ollysk.pr.port.in.CaptchaService;
 import net.ollysk.pr.port.in.PasswordResetService;
 import net.ollysk.pr.port.in.PasswordService;
 import net.ollysk.pr.port.in.UserService;
+import net.ollysk.pr.web.config.ConfigProperties;
 import net.ollysk.pr.web.event.UserResetPasswordEvent;
 import net.ollysk.pr.web.event.UserResetPasswordTokenEvent;
 import net.ollysk.pr.web.model.RegistrationEvent;
@@ -42,6 +43,7 @@ public class PasswordController {
   private final MessageSource messageSource;
   private final PasswordService passwordService;
   private final ApplicationEventPublisher eventPublisher;
+  private final ConfigProperties props;
 
   @GetMapping("")
   public String showPasswordResetPage(final UserWeb userWeb, BindingResult bindingResult,
@@ -78,7 +80,7 @@ public class PasswordController {
       eventPublisher.publishEvent(new UserResetPasswordTokenEvent(
           RegistrationEvent.builder()
               .user(user).password("").token(token)
-              .serverUrl("http://localhost:8080")
+              .serverUrl(props.getServerUrl())
               .locale(request.getLocale()).build()));
     } /*catch (final MailAuthenticationException e) {
       return "redirect:/emailError.html?lang=" + request.getLocale().getLanguage();
@@ -124,7 +126,7 @@ public class PasswordController {
     eventPublisher.publishEvent(new UserResetPasswordEvent(
         RegistrationEvent.builder()
             .user(user).password(rawPassword).token(token)
-            .serverUrl("http://localhost:8080")
+            .serverUrl(props.getServerUrl())
             .locale(request.getLocale()).build()));
     redirectAttrs.addFlashAttribute("message", "new password was sent to your email");
     return "redirect:/";//?lang=" + locale.getLanguage();

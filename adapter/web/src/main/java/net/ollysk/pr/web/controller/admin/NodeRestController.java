@@ -16,6 +16,7 @@ import net.ollysk.pr.model.NodeMeta;
 import net.ollysk.pr.port.in.NodeMetaService;
 import net.ollysk.pr.port.in.NodeService;
 import net.ollysk.pr.port.in.SearchService;
+import net.ollysk.pr.web.config.ConfigProperties;
 import net.ollysk.pr.web.mapper.NodeWebMapper;
 import net.ollysk.pr.web.model.NodeWeb;
 import net.ollysk.pr.web.security.UserSecurity;
@@ -45,6 +46,7 @@ public class NodeRestController {
 
   private final NodeWebMapper nodeWebMapper;
   private final RestPatchService restPatchService;
+  private final ConfigProperties props;
 
   @CrossOrigin
   @GetMapping(path = {"/nodes/{id:[\\d]+}/similar"})
@@ -62,7 +64,8 @@ public class NodeRestController {
       name = "params", type = "Map<String, String>", value = "Map of parameters", example = "page, size"
   ) @RequestParam(required = false) Map<String, String> params) {
     int page = Integer.parseInt(params.getOrDefault("page", "0"));
-    int size = Integer.parseInt(params.getOrDefault("size", "10"));
+    int size = Integer.parseInt(
+        params.getOrDefault("size", Integer.toString(props.getIndexPageSize())));
     List<Node> nodes = nodeService.findAll(page, size);
     return ResponseEntity.ok(nodes);
   }
@@ -73,7 +76,8 @@ public class NodeRestController {
       @RequestParam(defaultValue = "0") int categoryId,
       @RequestParam(required = false) Map<String, String> params) {
     int page = Integer.parseInt(params.getOrDefault("page", "0"));
-    int size = Integer.parseInt(params.getOrDefault("size", "10"));
+    int size = Integer.parseInt(
+        params.getOrDefault("size", Integer.toString(props.getCategoryPageSize())));
     List<Node> nodes = nodeService.findByCategory(categoryId, page, size);
     return ResponseEntity.ok(nodes);
   }
@@ -106,7 +110,7 @@ public class NodeRestController {
             userSecurity != null ? userSecurity.getId() : 0,
             getClientIp(request));
 
-    URI location = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/").
+    URI location = UriComponentsBuilder.fromHttpUrl(props.getServerUrl()).
         path(node.getNodeMeta().getPath())
         .buildAndExpand(node.getId()).toUri();
     return ResponseEntity.created(location).body(node);

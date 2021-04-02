@@ -8,6 +8,7 @@ import net.ollysk.pr.port.in.CategoryService;
 import net.ollysk.pr.port.in.NodeMetaService;
 import net.ollysk.pr.port.in.NodeService;
 import net.ollysk.pr.port.in.SearchService;
+import net.ollysk.pr.web.config.ConfigProperties;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.springframework.stereotype.Controller;
@@ -23,10 +24,11 @@ public class NodeController {
   private final NodeMetaService nodeMetaService;
   private final CategoryService categoryService;
   private final SearchService searchService;
+  private final ConfigProperties props;
 
   @GetMapping("/")
   public String showIndexPage(Model model) {
-    model.addAttribute("nodes", nodeService.findAll(0, 10));
+    model.addAttribute("nodes", nodeService.findAll(0, props.getIndexPageSize()));
     model.addAttribute("allCategories", categoryService.findAll());
     return "index";
   }
@@ -60,7 +62,7 @@ public class NodeController {
 
   @GetMapping(path = {"/category/{categoryId}"})
   public String showCategoryPage(Model model, @PathVariable("categoryId") int categoryId) {
-    List<Node> nodes = nodeService.findByCategory(categoryId, 0, 20);
+    List<Node> nodes = nodeService.findByCategory(categoryId, 0, props.getCategoryPageSize());
     model.addAttribute("nodes", nodes);
     model.addAttribute("allCategories", categoryService.findAll());
     return "index";

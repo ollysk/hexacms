@@ -44,3 +44,8 @@ spring:
                         enable: true
                 transport:
                     protocol: smtp
+pr:
+    web:
+        serverUrl: http://localhost:8080/
+        indexPageSize: 5
+        categoryPageSize: 20
