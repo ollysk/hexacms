@@ -17,6 +17,7 @@ import net.ollysk.pr.port.in.CategoryService;
 import net.ollysk.pr.port.in.NodeMetaService;
 import net.ollysk.pr.port.in.NodeService;
 import net.ollysk.pr.port.in.SearchService;
+import net.ollysk.pr.web.config.ConfigProperties;
 import net.ollysk.pr.web.mapper.NodeWebMapper;
 import net.ollysk.pr.web.model.NodeWeb;
 import net.ollysk.pr.web.security.UserSecurity;
@@ -52,6 +53,7 @@ class NodeRestControllerTest {
   private NodeMeta nodeMeta;
   private Node node;
   private List<Node> nodes;
+  private final String serverUrl = "http://localhost:8080/";
   @Autowired private MockMvc mockMvc;
   @MockBean private NodeMetaService nodeMetaService;
   @MockBean private RestPatchService restPatchService;
@@ -62,6 +64,7 @@ class NodeRestControllerTest {
   @MockBean private NodeWebMapper nodeWebMapper;
   @MockBean private HttpServletRequest request;
   @MockBean private UserSecurity userSecurity;
+  @MockBean private ConfigProperties props;
 
   @BeforeEach
   void setUp() {
@@ -168,6 +171,8 @@ class NodeRestControllerTest {
 
     given(nodeService.addNode(node, 0, "127.0.0.1"))
         .willReturn(node);
+
+    given(props.getServerUrl()).willReturn(serverUrl);
 
     mockMvc.perform(post(getUrl("/nodes"))
         .content(new ObjectMapper().writeValueAsString(nodeWeb))
